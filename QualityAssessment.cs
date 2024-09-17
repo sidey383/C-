@@ -16,7 +16,7 @@ public class QualityAssesment {
                 }
             }
         }
-        return 1 / this.HarmonicMean(quality.ToArray());
+        return this.HarmonicMean(quality.ToArray());
     }
 
     private double HarmonicMean(double[] values) {
@@ -24,7 +24,7 @@ public class QualityAssesment {
         foreach (double v in values) {
             reverseSum += 1/v;
         }
-        return 1 / reverseSum;
+        return values.Length / reverseSum;
     }
 
 }
