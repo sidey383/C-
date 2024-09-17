@@ -2,28 +2,16 @@ using Microsoft.AspNetCore.Components.Routing;
 
 namespace C_;
 
-public class Teamlead 
+public record Teamlead (int id, string name) : Employee
 {
 
-    private readonly int id;
+    public Teamlead(string id, string name) : this(int.Parse(id), name) {}
 
-    private readonly string name;
-
-    public Teamlead(int id, string name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Teamlead(string id, string name) {
-        this.id = int.Parse(id);
-        this.name = name;
-    }
-
-    public int getId() {
+    public int GetId() {
         return id;
     }
 
-    public string getName() {
+    public string GetName() {
         return name;
     }
 

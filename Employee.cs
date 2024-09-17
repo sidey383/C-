@@ -1,4 +1,4 @@
-public interface Participant
+public interface Employee
 {
     public int GetId();
 
