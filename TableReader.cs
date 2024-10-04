@@ -1,68 +1,40 @@
-
-using C_;
 using Microsoft.VisualBasic.FileIO;
+using Nsu.HackathonProblem.Contracts;
 
-public class TableReader
-{
+namespace Nsu.HackathonProblem {
 
-    private readonly List<Junior> juniors = new List<Junior>();
+    public class TableReader {
+        public TableReader() {}
 
-    private readonly List<Teamlead> teamleads = new List<Teamlead>();
-
-    public TableReader() { }
-
-    public void ReadJuniors(string file)
-    {
-        using (TextFieldParser csvReader = new TextFieldParser(file))
+        public Employee[] ReadEmployee(string file)
         {
-            ApplyCSVFormat(csvReader, file);
-            while (!csvReader.EndOfData)
+            using (TextFieldParser csvReader = new TextFieldParser(file))
             {
-                string[]? fieldData = csvReader.ReadFields();
-                if (fieldData != null && fieldData.Length == 2)
+                List<Employee> employees = new List<Employee>();
+                ApplyCSVFormat(csvReader, file);
+                while (!csvReader.EndOfData)
                 {
-                    juniors.Add(new Junior(fieldData[0], fieldData[1]));
+                    string[]? fieldData = csvReader.ReadFields();
+                    if (fieldData != null && fieldData.Length == 2)
+                    {
+                        employees.Add(new Employee(int.Parse(fieldData[0]), fieldData[1]));
+                    }
                 }
+                return employees.ToArray();
             }
         }
-    }
 
-    public void ReadTeamleads(string file)
-    {
-        using (TextFieldParser csvReader = new TextFieldParser(file))
+
+        private static void ApplyCSVFormat(TextFieldParser parser, string file)
         {
-            ApplyCSVFormat(csvReader, file);
-            while (!csvReader.EndOfData)
-            {
-                string[]? fieldData = csvReader.ReadFields();
-                if (fieldData != null && fieldData.Length == 2)
-                {
-                    teamleads.Add(new Teamlead(fieldData[0], fieldData[1]));
-                }
-            }
+            parser.TextFieldType = FieldType.Delimited;
+            parser.SetDelimiters(";");
+            string[]? colFields = parser.ReadFields();
+            if (colFields == null || colFields.Length != 2)
+                throw new ArgumentException("Wrong table: '" + file + "'");
+            if (!colFields[0].ToLowerInvariant().Equals("id") || !colFields[1].ToLowerInvariant().Equals("name"))
+                throw new ArgumentException("Wrong table: '" + file + "'");
         }
+
     }
-
-
-    private static void ApplyCSVFormat(TextFieldParser parser, string file)
-    {
-        parser.TextFieldType = FieldType.Delimited;
-        parser.SetDelimiters(";");
-        string[]? colFields = parser.ReadFields();
-        if (colFields == null || colFields.Length != 2)
-            throw new ArgumentException("Wrong table: '" + file + "'");
-        if (!colFields[0].ToLowerInvariant().Equals("id")
-        || !colFields[1].ToLowerInvariant().Equals("name"))
-            throw new ArgumentException("Wrong table: '" + file + "'");
-    }
-
-
-    public List<Junior> GetJuniors() {
-        return juniors;
-    } 
-
-    public List<Teamlead> GetTeamleads() {
-        return teamleads;
-    }
-
 }
