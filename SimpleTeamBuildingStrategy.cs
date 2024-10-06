@@ -4,14 +4,15 @@ namespace Nsu.HackathonProblem {
 
     using Contracts;
 
-    public class TeamBuildingStrategy : ITeamBuildingStrategy
+    public class SimpleTeamBuildingStrategy : ITeamBuildingStrategy
     {
 
-        IEnumerable<Team> ITeamBuildingStrategy.BuildTeams(IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors, 
-            IEnumerable<Wishlist> teamLeadsWishlists, IEnumerable<Wishlist> juniorsWishlists)
-        {
+        IEnumerable<Team> ITeamBuildingStrategy.BuildTeams(
+            IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors, 
+            IEnumerable<Wishlist> teamLeadsWishlists, IEnumerable<Wishlist> juniorsWishlists
+        ) {
                 if (teamLeads.Count() != juniors.Count())
-                    throw new Exception("Wrong employee count");
+                    throw new ArgumentException("Wrong employee count");
                 IEnumerator<Employee> tlE = teamLeads.GetEnumerator();
                 IEnumerator<Employee> juE = juniors.GetEnumerator();
                 List<Team> teams = new List<Team>();

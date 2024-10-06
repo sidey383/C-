@@ -4,10 +4,10 @@ namespace Nsu.HackathonProblem {
 
     public class Hackathon {
 
-        private readonly System.Random random = new System.Random();
+        private readonly System.Random _random;
 
-        public Hackathon() {
-            Console.WriteLine("Hackathon create!");
+        public Hackathon(System.Random random) {
+            this._random = random;
         }
 
         public IEnumerable<Wishlist> CreateWishlist(IEnumerable<Employee> employee, IEnumerable<Employee> toDesire) {
@@ -18,7 +18,7 @@ namespace Nsu.HackathonProblem {
                 ie.MoveNext();
                 int[] order = new int[targets.Length];
                 Array.Copy(targets, order, targets.Length);
-                random.Shuffle(order);
+                _random.Shuffle(order);
                 wishes[i] = new Wishlist(ie.Current.Id, order);
             }
             return wishes;
