@@ -24,7 +24,7 @@ namespace Nsu.HackathonProblem {
             }
 
             private int findGrade(Wishlist wl, Employee employee) {
-                return wl.DesiredEmployees.Length - MathUtils.findNumber(wl.DesiredEmployees, employee.Id);
+                return wl.DesiredEmployees.Length - MathUtils.findPose(wl.DesiredEmployees, employee.Id);
             }
 
 

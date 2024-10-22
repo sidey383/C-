@@ -15,6 +15,7 @@ namespace Nsu.HackathonProblem {
                 while (number < order.Length) {
                     if (order[number] == graded)
                         return number;
+                    ++number;
                 }
                 throw new ArgumentException(string.Format("Cant't found '{0}' in '{1}'", graded, order));
             }
