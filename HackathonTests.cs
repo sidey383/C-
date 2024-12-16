@@ -6,8 +6,7 @@ using Nsu.HackathonProblem.Contracts;
 
 namespace Nsu.HackathonProblem {
 
-  public class UserModel_Tests
-
+  public class Hackathon_Tests
   {
 
       IEnumerable<Employee> teamLeads = [
