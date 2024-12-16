@@ -3,11 +3,11 @@ namespace Nsu.HackathonProblem {
 
     public class HrDirector {
 
-            private readonly ILogger<HrDirector> _logger;
+            private readonly MathUtils _mathUtils;
 
 
-            public HrDirector(ILogger<HrDirector> logger) {
-                this._logger = logger;
+            public HrDirector(MathUtils mathUtils) {
+                this._mathUtils = mathUtils;
             }
 
             public double CalculateQuality(IEnumerable<Team> teams, IEnumerable<Wishlist> teamLeadsWishlists, IEnumerable<Wishlist> juniorsWishlists) {
@@ -20,11 +20,11 @@ namespace Nsu.HackathonProblem {
                     grades.Add(findGrade(tlw, t.Junior));
                     grades.Add(findGrade(jw, t.TeamLead));
                 }
-                return MathUtils.harmonicMean(grades);
+                return _mathUtils.harmonicMean(grades);
             }
 
             private int findGrade(Wishlist wl, Employee employee) {
-                return wl.DesiredEmployees.Length - MathUtils.findPose(wl.DesiredEmployees, employee.Id);
+                return wl.DesiredEmployees.Length - _mathUtils.findPose(wl.DesiredEmployees, employee.Id);
             }
 
 
